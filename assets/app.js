@@ -6,11 +6,11 @@
 
   var data = (typeof window.SITE_DATA !== "undefined" && window.SITE_DATA) || {};
   var profile = data.profile || {};
-  var resume = Array.isArray(data.resume) ? data.resume : [];
+  var capabilities = Array.isArray(data.capabilities) ? data.capabilities : [];
+  var projects = Array.isArray(data.projects) ? data.projects : [];
   var cap = (data.capability && data.capability.nodes) ? data.capability : { nodes: [], edges: [] };
   var nodes = cap.nodes || [];
   var edges = cap.edges || [];
-  var works = Array.isArray(data.works) ? data.works : [];
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -18,6 +18,16 @@
     if (text !== undefined && text !== null) node.textContent = text;
     return node;
   }
+
+  function externalLink(href, text) {
+    var a = el("a", "", text);
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    return a;
+  }
+
+  // ---------- 首屏 ----------
 
   function renderHero() {
     var box = document.getElementById("hero-content");
@@ -31,13 +41,7 @@
     if (profile.title) box.appendChild(el("div", "hero-role", profile.title));
     if (profile.tagline) box.appendChild(el("p", "hero-tagline", profile.tagline));
     var links = el("div", "hero-links");
-    if (profile.github) {
-      var gh = el("a", "", "GitHub: " + profile.github.replace(/^https?:\/\//, ""));
-      gh.href = profile.github;
-      gh.target = "_blank";
-      gh.rel = "noopener noreferrer";
-      links.appendChild(gh);
-    }
+    if (profile.github) links.appendChild(externalLink(profile.github, "GitHub: " + profile.github.replace(/^https?:\/\//, "")));
     if (profile.email) {
       var mail = el("a", "", profile.email);
       mail.href = "mailto:" + profile.email;
@@ -46,25 +50,73 @@
     if (links.childNodes.length) box.appendChild(links);
   }
 
+  // ---------- 能力概览 ----------
+
   function renderResume() {
-    var box = document.getElementById("resume-timeline");
+    var box = document.getElementById("resume-content");
     if (!box) return;
     box.textContent = "";
-    if (!resume.length) {
-      box.appendChild(el("p", "section-sub", "简历内容待配置。"));
+    if (profile.degree) {
+      var edu = el("div", "degree-line");
+      edu.appendChild(el("span", "degree-label", "教育背景"));
+      edu.appendChild(el("span", "degree-value", profile.degree));
+      box.appendChild(edu);
+    }
+    if (!capabilities.length) {
+      box.appendChild(el("p", "section-sub", "能力条目待配置。"));
       return;
     }
-    resume.forEach(function (item) {
-      if (!item || !item.title) return;
-      var row = el("div", "timeline-item");
-      if (item.date) row.appendChild(el("div", "timeline-date", item.date));
-      row.appendChild(el("h3", "timeline-title", item.title));
-      var points = el("ul", "timeline-points");
-      (Array.isArray(item.points) ? item.points : []).forEach(function (p) {
-        if (p) points.appendChild(el("li", "", p));
-      });
-      row.appendChild(points);
-      box.appendChild(row);
+    var grid = el("div", "capability-grid");
+    capabilities.forEach(function (item) {
+      if (!item || !item.label) return;
+      var card = el("article", "capability-card");
+      card.appendChild(el("h3", "", item.label));
+      if (item.desc) card.appendChild(el("p", "", item.desc));
+      grid.appendChild(card);
+    });
+    box.appendChild(grid);
+  }
+
+  // ---------- 项目经历 ----------
+
+  function renderProjects() {
+    var box = document.getElementById("projects-list");
+    if (!box) return;
+    box.textContent = "";
+    if (!projects.length) {
+      box.appendChild(el("p", "section-sub", "项目内容待配置。"));
+      return;
+    }
+    projects.forEach(function (project) {
+      if (!project || !project.name) return;
+      var card = el("article", "project-card");
+
+      var head = el("div", "project-head");
+      head.appendChild(el("h3", "", project.name));
+      if (project.href) head.appendChild(externalLink(project.href, "GitHub ↗"));
+      card.appendChild(head);
+
+      if (project.summary) card.appendChild(el("p", "project-summary", project.summary));
+
+      if (Array.isArray(project.metrics) && project.metrics.length) {
+        var metrics = el("div", "metrics");
+        project.metrics.forEach(function (m) { if (m) metrics.appendChild(el("span", "metric", m)); });
+        card.appendChild(metrics);
+      }
+
+      if (Array.isArray(project.highlights) && project.highlights.length) {
+        var list = el("ul", "project-highlights");
+        project.highlights.forEach(function (h) { if (h) list.appendChild(el("li", "", h)); });
+        card.appendChild(list);
+      }
+
+      if (Array.isArray(project.tags) && project.tags.length) {
+        var tags = el("div", "tags");
+        project.tags.forEach(function (t) { if (t) tags.appendChild(el("span", "chip", t)); });
+        card.appendChild(tags);
+      }
+
+      box.appendChild(card);
     });
   }
 
@@ -118,9 +170,7 @@
 
   function svgEl(name, attrs) {
     var node = document.createElementNS(svgNS, name);
-    Object.keys(attrs || {}).forEach(function (k) {
-      node.setAttribute(k, attrs[k]);
-    });
+    Object.keys(attrs || {}).forEach(function (k) { node.setAttribute(k, attrs[k]); });
     return node;
   }
 
@@ -129,10 +179,8 @@
   function showDetail(node, activate) {
     if (!detailBox || !node) return;
     detailBox.textContent = "";
-    var h = el("h3", "", node.label || node.id);
-    detailBox.appendChild(h);
-    var lv = el("div", "level", "自评 " + (node.level || 0) + " / 5");
-    detailBox.appendChild(lv);
+    detailBox.appendChild(el("h3", "", node.label || node.id));
+    detailBox.appendChild(el("div", "level", "自评 " + (node.level || 0) + " / 5"));
     if (node.intro) detailBox.appendChild(el("p", "", node.intro));
     if (Array.isArray(node.skills) && node.skills.length) {
       var tags = el("div", "tags");
@@ -144,7 +192,7 @@
 
   function highlight(activeId) {
     var adj = adjacency();
-    var linked = adj[activeId] || [];
+    var linked = activeId ? (adj[activeId] || []) : [];
     nodes.forEach(function (n) {
       var group = document.getElementById("gn-" + n.id);
       if (!group) return;
@@ -154,10 +202,10 @@
       group.classList.toggle("dim", !isActive && !isLink && activeId !== null);
     });
     edges.forEach(function (e) {
-      var line = document.getElementById("ge-" + e.source + "-" + e.target);
-      var reverse = document.getElementById("ge-" + e.target + "-" + e.source);
+      var l1 = document.getElementById("ge-" + e.source + "-" + e.target);
+      var l2 = document.getElementById("ge-" + e.target + "-" + e.source);
       var on = e.source === activeId || e.target === activeId;
-      [line, reverse].forEach(function (l) {
+      [l1, l2].forEach(function (l) {
         if (l) {
           l.classList.toggle("active", on);
           l.classList.toggle("dim", !on && activeId !== null);
@@ -178,7 +226,6 @@
     svg.setAttribute("viewBox", "0 0 " + LAYOUT.w + " " + LAYOUT.h);
     var pos = layout();
     var hub = hubId();
-    var adj = adjacency();
 
     var defs = svgEl("defs", {});
     var grad = svgEl("linearGradient", { id: "g-accent", x1: "0", y1: "0", x2: "1", y2: "1" });
@@ -190,10 +237,7 @@
     edges.forEach(function (e) {
       var a = pos[e.source], b = pos[e.target];
       if (!a || !b) return;
-      var line = svgEl("line", {
-        id: "ge-" + e.source + "-" + e.target,
-        x1: a.x, y1: a.y, x2: b.x, y2: b.y
-      });
+      var line = svgEl("line", { id: "ge-" + e.source + "-" + e.target, x1: a.x, y1: a.y, x2: b.x, y2: b.y });
       line.setAttribute("class", "link");
       svg.appendChild(line);
     });
@@ -210,10 +254,7 @@
       });
       var r = node.id === hub ? 30 : 17;
       g.appendChild(svgEl("circle", { r: r }));
-      var label = svgEl("text", {
-        y: node.id === hub ? r + 22 : r + 18,
-        "text-anchor": "middle"
-      });
+      var label = svgEl("text", { y: node.id === hub ? r + 22 : r + 18, "text-anchor": "middle" });
       label.textContent = node.label || node.id;
       g.appendChild(label);
 
@@ -230,41 +271,7 @@
       svg.appendChild(g);
     });
 
-    if (adj[hub] && adj[hub].length && nodeById(hub)) showDetail(nodeById(hub), false);
-  }
-
-  // ---------- 作品 ----------
-
-  function renderWorks() {
-    var box = document.getElementById("works-list");
-    if (!box) return;
-    box.textContent = "";
-    if (!works.length) {
-      box.appendChild(el("p", "section-sub", "作品内容待配置。"));
-      return;
-    }
-    works.forEach(function (work) {
-      if (!work || !work.name) return;
-      var card = el("article", "work-card");
-      var head = el("h3", "");
-      if (work.href) {
-        var a = el("a", "", work.name);
-        a.href = work.href;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        head.appendChild(a);
-      } else {
-        head.appendChild(document.createTextNode(work.name));
-      }
-      card.appendChild(head);
-      if (work.tagline) card.appendChild(el("p", "tagline", work.tagline));
-      if (Array.isArray(work.tags) && work.tags.length) {
-        var tags = el("div", "tags");
-        work.tags.forEach(function (t) { if (t) tags.appendChild(el("span", "chip", t)); });
-        card.appendChild(tags);
-      }
-      box.appendChild(card);
-    });
+    if (nodeById(hub)) showDetail(nodeById(hub), false);
   }
 
   // ---------- 联系 ----------
@@ -273,13 +280,7 @@
     var box = document.getElementById("contact-links");
     if (!box) return;
     box.textContent = "";
-    if (profile.github) {
-      var gh = el("a", "", "GitHub：" + profile.github);
-      gh.href = profile.github;
-      gh.target = "_blank";
-      gh.rel = "noopener noreferrer";
-      box.appendChild(gh);
-    }
+    if (profile.github) box.appendChild(externalLink(profile.github, "GitHub：" + profile.github));
     if (profile.email) {
       var mail = el("a", "", "邮箱：" + profile.email);
       mail.href = "mailto:" + profile.email;
@@ -291,8 +292,8 @@
   function init() {
     renderHero();
     renderResume();
+    renderProjects();
     renderCapability();
-    renderWorks();
     renderContact();
   }
 
