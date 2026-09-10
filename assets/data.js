@@ -6,10 +6,43 @@ window.SITE_DATA = {
   "profile": {
     "name": "高泽龙",
     "title": "AI Agent / LLM 应用开发工程师",
-    "tagline": "以大模型与 Agent 工程落地真实业务：从数据接入、业务建模、Agent 编排、工具封装到容器化部署的端到端能力。",
+    "tagline": "以大模型与 Agent 工程落地真实业务：从数据接入、Python 建模、Agent 编排、工具封装到容器化部署的端到端能力。",
     "degree": "本科 · 长春理工大学光电信息学院",
     "email": "464585877@qq.com",
     "github": "https://github.com/az949527"
+  },
+  "strengths": {
+    "headline": "数据分析 × 数据开发 × 机器学习 × AI 应用工程化",
+    "items": [
+      {
+        "label": "复合经验背景",
+        "desc": "覆盖数据分析、数据开发、机器学习建模到 AI 应用工程化的完整成长路径，能把业务问题翻译成数据与模型方案，并推进到线上可用。"
+      },
+      {
+        "label": "技术方向覆盖",
+        "desc": "熟悉 RAG、Agent、NL2SQL、Tool Calling、LangGraph 等技术方向，能够基于平台底座完成智能问答、数据分析助手与 Agent 工具链开发。"
+      },
+      {
+        "label": "工程化闭环能力",
+        "desc": "具备 Python、SQL、FastAPI、Docker、Redis 等工程能力，能独立完成从数据接入、Python 建模、工具封装、Agent 编排到服务部署的完整链路。"
+      }
+    ],
+    "path": ["数据分析", "数据开发", "机器学习 / Python 建模", "AI 应用工程化"],
+    "keywords": [
+      "RAG",
+      "Agent",
+      "NL2SQL",
+      "Tool Calling",
+      "LangGraph",
+      "机器学习",
+      "Python 建模",
+      "Python",
+      "SQL",
+      "FastAPI",
+      "Docker",
+      "Redis"
+    ],
+    "summary": "具备数据分析、数据开发、机器学习与 AI 应用工程化经验，熟悉 RAG、Agent、NL2SQL、Tool Calling、LangGraph 等技术方向，能够基于平台底座完成智能问答、数据分析助手和 Agent 工具链开发；同时具备 Python 建模能力，结合 Python、SQL、FastAPI、Docker、Redis 等工程能力，能独立完成从数据接入、Python 建模、工具封装、Agent 编排到服务部署的完整链路。"
   },
   "capabilities": [
     {

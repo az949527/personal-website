@@ -6,6 +6,7 @@
 
   var data = (typeof window.SITE_DATA !== "undefined" && window.SITE_DATA) || {};
   var profile = data.profile || {};
+  var strengths = data.strengths || {};
   var capabilities = Array.isArray(data.capabilities) ? data.capabilities : [];
   var projects = Array.isArray(data.projects) ? data.projects : [];
 
@@ -45,6 +46,54 @@
       links.appendChild(mail);
     }
     if (links.childNodes.length) box.appendChild(links);
+  }
+
+  // ---------- 个人优势 ----------
+
+  function renderStrengths() {
+    var box = document.getElementById("strengths-content");
+    if (!box) return;
+    box.textContent = "";
+    if (!strengths.headline && !(strengths.items || []).length) {
+      box.appendChild(el("p", "section-sub", "个人优势内容待配置。"));
+      return;
+    }
+    if (strengths.headline) box.appendChild(el("p", "strengths-headline", strengths.headline));
+
+    if (Array.isArray(strengths.path) && strengths.path.length) {
+      var pathBar = el("div", "strength-path");
+      strengths.path.forEach(function (step, i) {
+        if (!step) return;
+        if (i > 0) pathBar.appendChild(el("span", "path-arrow", "→"));
+        pathBar.appendChild(el("span", "path-step", step));
+      });
+      box.appendChild(pathBar);
+    }
+
+    if (Array.isArray(strengths.items) && strengths.items.length) {
+      var grid = el("div", "strengths-grid");
+      strengths.items.forEach(function (item) {
+        if (!item || !item.label) return;
+        var card = el("article", "strength-card");
+        card.appendChild(el("h3", "", item.label));
+        if (item.desc) card.appendChild(el("p", "", item.desc));
+        grid.appendChild(card);
+      });
+      box.appendChild(grid);
+    }
+
+    if (Array.isArray(strengths.keywords) && strengths.keywords.length) {
+      var chips = el("div", "tags strengths-keywords");
+      strengths.keywords.forEach(function (kw) { if (kw) chips.appendChild(el("span", "chip", kw)); });
+      box.appendChild(chips);
+    }
+
+    if (strengths.summary) {
+      var sum = el("p", "strengths-summary");
+      sum.appendChild(el("span", "summary-label", "总结"));
+      sum.appendChild(document.createTextNode(strengths.summary));
+      box.appendChild(sum);
+    }
   }
 
   // ---------- 能力概览 ----------
@@ -134,6 +183,7 @@
 
   function init() {
     renderHero();
+    renderStrengths();
     renderResume();
     renderProjects();
     renderContact();
