@@ -115,29 +115,6 @@ section h2 {
 .timeline-points { margin: 0; padding-left: 18px; color: var(--text-dim); }
 .timeline-points li { margin-bottom: 6px; }
 
-/* 能力图谱 */
-.graph-wrap { display: flex; flex-direction: column; gap: 18px; }
-#capability-graph { width: 100%; height: auto; display: block; }
-#capability-graph .link { stroke: var(--line); stroke-width: 1.6; transition: stroke 0.2s ease, opacity 0.2s ease; }
-#capability-graph .node-core circle { fill: var(--accent); }
-#capability-graph .node circle { fill: var(--bg-card); stroke: var(--accent-2); stroke-width: 1.6; transition: fill 0.2s ease, stroke 0.2s ease; }
-#capability-graph .node text { fill: var(--text); font-size: 13px; }
-#capability-graph .node text.label-dim { fill: var(--text-dim); }
-#capability-graph .node.active circle { fill: var(--accent-2); stroke: var(--accent); }
-#capability-graph .link.active { stroke: var(--accent); opacity: 1; }
-#capability-graph .link.dim, #capability-graph .node.dim { opacity: 0.28; }
-
-.graph-detail {
-  min-height: 84px;
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px 18px;
-}
-.graph-detail h3 { margin: 0 0 4px; font-size: 1.05rem; color: var(--accent); }
-.graph-detail .level { color: var(--text-dim); font-size: 0.85rem; margin: 0 0 6px; }
-.graph-detail p { margin: 0 0 8px; font-size: 0.95rem; color: var(--text-dim); }
-.graph-detail .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {
   font-size: 0.78rem;
   padding: 2px 10px;

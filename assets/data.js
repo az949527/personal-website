@@ -1,4 +1,4 @@
-// 个人网站内容数据 —— 全部文案/项目/图谱集中于此，修改后刷新即生效。
+// 个人网站内容数据 —— 全部文案/项目集中于此，修改后刷新即生效。
 // 约束（测试 seam）：window.SITE_DATA 的赋值字面量必须保持严格 JSON 语法：
 // 双引号键、无尾随逗号。
 // 隐私：不写入手机号与年龄（公开页面）。
@@ -77,82 +77,5 @@ window.SITE_DATA = {
       "metrics": ["端到端自动化闭环：提问 → SQL 生成 → 结果校验 → 分析摘要", "SQL Guardrails 覆盖表名/字段/聚合/过滤/范围/危险操作"],
       "tags": ["NL2SQL", "SQL Guardrails", "结构化输出", "缓存优化"]
     }
-  ],
-  "capability": {
-    "nodes": [
-      {
-        "id": "core",
-        "label": "AI Agent / LLM 应用开发",
-        "level": 5,
-        "intro": "求职核心方向：大模型应用与智能体工程，强调可评估、可追踪、可落地。",
-        "skills": ["Agent 编排", "Agentic RAG", "工程化落地"]
-      },
-      {
-        "id": "agent",
-        "label": "Agent 编排与推理",
-        "level": 5,
-        "intro": "基于 LangGraph + ReAct 的多轮推理闭环，工具封装与动态调用链路规划。",
-        "skills": ["LangGraph", "ReAct", "Tool Calling"]
-      },
-      {
-        "id": "rag",
-        "label": "Agentic RAG / 检索增强",
-        "level": 5,
-        "intro": "文档解析、Chunking、Embedding、向量检索、阈值过滤与上下文增强生成。",
-        "skills": ["FAISS", "Chunking", "上下文增强"]
-      },
-      {
-        "id": "llm-app",
-        "label": "大模型应用开发",
-        "level": 4,
-        "intro": "Prompt Engineering、结构化输出、流式响应与多轮上下文记忆设计。",
-        "skills": ["Prompt Engineering", "流式响应", "Semantic Memory"]
-      },
-      {
-        "id": "nl2sql",
-        "label": "自然语言数据查询",
-        "level": 4,
-        "intro": "NL2SQL 查询链路编排与 SQL 安全校验，面向经营看板与自助分析。",
-        "skills": ["NL2SQL", "SQL Guardrails"]
-      },
-      {
-        "id": "backend",
-        "label": "后端与部署工程",
-        "level": 4,
-        "intro": "服务接口封装、缓存、异常兜底与容器化部署。",
-        "skills": ["FastAPI", "Redis", "Docker"]
-      },
-      {
-        "id": "data",
-        "label": "数据工程与分析",
-        "level": 4,
-        "intro": "SQL 开发、指标体系搭建、监控预警与数据质量排查。",
-        "skills": ["SQL", "PostgreSQL", "Hive", "pandas"]
-      },
-      {
-        "id": "eval",
-        "label": "评估与可观测",
-        "level": 4,
-        "intro": "自建评估脚本量化检索效果，日志追踪与异常兜底保障可观测。",
-        "skills": ["评估脚本", "Recall@3", "MRR"]
-      },
-      {
-        "id": "doc-parse",
-        "label": "多格式文档接入",
-        "level": 4,
-        "intro": "统一 PDF / TXT / Markdown 处理流程，异构文档转为可索引文本块。",
-        "skills": ["PDF", "Markdown", "统一处理"]
-      }
-    ],
-    "edges": [
-      { "source": "core", "target": "agent" },
-      { "source": "core", "target": "rag" },
-      { "source": "core", "target": "llm-app" },
-      { "source": "core", "target": "nl2sql" },
-      { "source": "core", "target": "backend" },
-      { "source": "core", "target": "data" },
-      { "source": "core", "target": "eval" },
-      { "source": "core", "target": "doc-parse" }
-    ]
-  }
+  ]
 };
