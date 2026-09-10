@@ -27,7 +27,6 @@ window.SITE_DATA = {
         "desc": "具备 Python、SQL、FastAPI、Docker、Redis 等工程能力，能独立完成从数据接入、Python 建模、工具封装、Agent 编排到服务部署的完整链路。"
       }
     ],
-    "path": ["数据分析", "数据开发", "机器学习 / Python 建模", "AI 应用工程化"],
     "keywords": [
       "RAG",
       "Agent",

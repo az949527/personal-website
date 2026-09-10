@@ -63,16 +63,6 @@
 
     if (resume.headline) box.appendChild(el("p", "resume-headline", resume.headline));
 
-    if (Array.isArray(resume.path) && resume.path.length) {
-      var pathBar = el("div", "resume-path");
-      resume.path.forEach(function (step, i) {
-        if (!step) return;
-        if (i > 0) pathBar.appendChild(el("span", "path-arrow", "→"));
-        pathBar.appendChild(el("span", "path-step", step));
-      });
-      box.appendChild(pathBar);
-    }
-
     if (Array.isArray(resume.items) && resume.items.length) {
       var grid = el("div", "resume-grid");
       resume.items.forEach(function (item) {
