@@ -12,6 +12,7 @@ window.SITE_DATA = {
     "github": "https://github.com/az949527"
   },
   "resume": {
+    "headline": "数据分析 × 数据开发 × 机器学习 × AI 应用工程化",
     "items": [
       {
         "label": "复合经验背景",
