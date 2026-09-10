@@ -11,7 +11,7 @@ window.SITE_DATA = {
     "email": "464585877@qq.com",
     "github": "https://github.com/az949527"
   },
-  "strengths": {
+  "resume": {
     "headline": "数据分析 × 数据开发 × 机器学习 × AI 应用工程化",
     "items": [
       {
@@ -44,32 +44,6 @@ window.SITE_DATA = {
     ],
     "summary": "具备数据分析、数据开发、机器学习与 AI 应用工程化经验，熟悉 RAG、Agent、NL2SQL、Tool Calling、LangGraph 等技术方向，能够基于平台底座完成智能问答、数据分析助手和 Agent 工具链开发；同时具备 Python 建模能力，结合 Python、SQL、FastAPI、Docker、Redis 等工程能力，能独立完成从数据接入、Python 建模、工具封装、Agent 编排到服务部署的完整链路。"
   },
-  "capabilities": [
-    {
-      "label": "AI 应用端到端交付",
-      "desc": "独立完成从数据接入、业务建模、Agent 编排、工具封装到服务部署的完整实现链路。"
-    },
-    {
-      "label": "AI 工程化建设",
-      "desc": "落地 Redis 缓存、日志追踪、异常兜底、结构化输出、流式响应与 Docker 部署，提升系统稳定性与交互体验。"
-    },
-    {
-      "label": "数据体系与监控",
-      "desc": "搭建多套业务监控体系与风控预警机制，覆盖核心指标波动、异常流量与转化变化。"
-    },
-    {
-      "label": "指标体系与分析",
-      "desc": "搭建活跃、留存、转化、流失等核心指标体系，沉淀可复用分析模板，支持专题分析与异常定位。"
-    },
-    {
-      "label": "数据开发与质量保障",
-      "desc": "SQL 开发、专题分析、数据质量排查与报表维护，支撑运营、产品与管理层的数据决策。"
-    },
-    {
-      "label": "跨部门协同与口径统一",
-      "desc": "参与跨部门数据整合与指标沉淀，统一分析口径，提升数据服务效率与业务协同效率。"
-    }
-  ],
   "projects": [
     {
       "name": "MemBrain — 面向企业知识管理场景的 Agentic RAG 知识助手",

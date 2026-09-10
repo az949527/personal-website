@@ -6,8 +6,7 @@
 
   var data = (typeof window.SITE_DATA !== "undefined" && window.SITE_DATA) || {};
   var profile = data.profile || {};
-  var strengths = data.strengths || {};
-  var capabilities = Array.isArray(data.capabilities) ? data.capabilities : [];
+  var resume = data.resume || {};
   var projects = Array.isArray(data.projects) ? data.projects : [];
 
   function el(tag, className, text) {
@@ -48,21 +47,25 @@
     if (links.childNodes.length) box.appendChild(links);
   }
 
-  // ---------- 个人优势 ----------
+  // ---------- 能力概览（含个人优势总结） ----------
 
-  function renderStrengths() {
-    var box = document.getElementById("strengths-content");
+  function renderResume() {
+    var box = document.getElementById("resume-content");
     if (!box) return;
     box.textContent = "";
-    if (!strengths.headline && !(strengths.items || []).length) {
-      box.appendChild(el("p", "section-sub", "个人优势内容待配置。"));
-      return;
-    }
-    if (strengths.headline) box.appendChild(el("p", "strengths-headline", strengths.headline));
 
-    if (Array.isArray(strengths.path) && strengths.path.length) {
-      var pathBar = el("div", "strength-path");
-      strengths.path.forEach(function (step, i) {
+    if (profile.degree) {
+      var edu = el("div", "degree-line");
+      edu.appendChild(el("span", "degree-label", "教育背景"));
+      edu.appendChild(el("span", "degree-value", profile.degree));
+      box.appendChild(edu);
+    }
+
+    if (resume.headline) box.appendChild(el("p", "resume-headline", resume.headline));
+
+    if (Array.isArray(resume.path) && resume.path.length) {
+      var pathBar = el("div", "resume-path");
+      resume.path.forEach(function (step, i) {
         if (!step) return;
         if (i > 0) pathBar.appendChild(el("span", "path-arrow", "→"));
         pathBar.appendChild(el("span", "path-step", step));
@@ -70,11 +73,11 @@
       box.appendChild(pathBar);
     }
 
-    if (Array.isArray(strengths.items) && strengths.items.length) {
-      var grid = el("div", "strengths-grid");
-      strengths.items.forEach(function (item) {
+    if (Array.isArray(resume.items) && resume.items.length) {
+      var grid = el("div", "resume-grid");
+      resume.items.forEach(function (item) {
         if (!item || !item.label) return;
-        var card = el("article", "strength-card");
+        var card = el("article", "resume-card");
         card.appendChild(el("h3", "", item.label));
         if (item.desc) card.appendChild(el("p", "", item.desc));
         grid.appendChild(card);
@@ -82,45 +85,20 @@
       box.appendChild(grid);
     }
 
-    if (Array.isArray(strengths.keywords) && strengths.keywords.length) {
-      var chips = el("div", "tags strengths-keywords");
-      strengths.keywords.forEach(function (kw) { if (kw) chips.appendChild(el("span", "chip", kw)); });
+    if (Array.isArray(resume.keywords) && resume.keywords.length) {
+      var chips = el("div", "tags resume-keywords");
+      resume.keywords.forEach(function (kw) { if (kw) chips.appendChild(el("span", "chip", kw)); });
       box.appendChild(chips);
     }
 
-    if (strengths.summary) {
-      var sum = el("p", "strengths-summary");
+    if (resume.summary) {
+      var sum = el("p", "resume-summary");
       sum.appendChild(el("span", "summary-label", "总结"));
-      sum.appendChild(document.createTextNode(strengths.summary));
+      sum.appendChild(document.createTextNode(resume.summary));
       box.appendChild(sum);
     }
-  }
 
-  // ---------- 能力概览 ----------
-
-  function renderResume() {
-    var box = document.getElementById("resume-content");
-    if (!box) return;
-    box.textContent = "";
-    if (profile.degree) {
-      var edu = el("div", "degree-line");
-      edu.appendChild(el("span", "degree-label", "教育背景"));
-      edu.appendChild(el("span", "degree-value", profile.degree));
-      box.appendChild(edu);
-    }
-    if (!capabilities.length) {
-      box.appendChild(el("p", "section-sub", "能力条目待配置。"));
-      return;
-    }
-    var grid = el("div", "capability-grid");
-    capabilities.forEach(function (item) {
-      if (!item || !item.label) return;
-      var card = el("article", "capability-card");
-      card.appendChild(el("h3", "", item.label));
-      if (item.desc) card.appendChild(el("p", "", item.desc));
-      grid.appendChild(card);
-    });
-    box.appendChild(grid);
+    if (!box.childNodes.length) box.appendChild(el("p", "section-sub", "能力概览内容待配置。"));
   }
 
   // ---------- 项目经历 ----------
@@ -183,7 +161,6 @@
 
   function init() {
     renderHero();
-    renderStrengths();
     renderResume();
     renderProjects();
     renderContact();

@@ -1,4 +1,4 @@
-/* 个人网站 · 深色科技风 —— 全部样式集中在 styles.css */
+﻿/* 个人网站 · 深色科技风 —— 全部样式集中在 styles.css */
 
 :root {
   --bg: #0b1020;
@@ -124,8 +124,8 @@ section h2 {
   background: rgba(148, 163, 196, 0.08);
 }
 
-/* 个人优势 */
-.strengths-headline {
+/* 能力概览（含个人优势总结） */
+.resume-headline {
   font-size: clamp(1.15rem, 3.2vw, 1.6rem);
   font-weight: 700;
   margin: 0 0 18px;
@@ -135,7 +135,7 @@ section h2 {
   color: transparent;
   width: fit-content;
 }
-.strength-path {
+.resume-path {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -151,18 +151,18 @@ section h2 {
   color: var(--text);
 }
 .path-arrow { color: var(--accent); font-weight: 700; }
-.strengths-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.strength-card {
+.resume-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.resume-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
   border-top: 2px solid var(--accent-2);
   border-radius: var(--radius);
   padding: 18px;
 }
-.strength-card h3 { margin: 0 0 8px; font-size: 1.02rem; color: var(--accent); }
-.strength-card p { margin: 0; color: var(--text-dim); font-size: 0.93rem; }
-.strengths-keywords { margin-top: 18px; }
-.strengths-summary {
+.resume-card h3 { margin: 0 0 8px; font-size: 1.02rem; color: var(--accent); }
+.resume-card p { margin: 0; color: var(--text-dim); font-size: 0.93rem; }
+.resume-keywords { margin-top: 18px; }
+.resume-summary {
   margin: 20px 0 0;
   padding: 14px 16px;
   border-left: 3px solid var(--line);
