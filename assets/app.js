@@ -61,8 +61,6 @@
       box.appendChild(edu);
     }
 
-    if (resume.headline) box.appendChild(el("p", "resume-headline", resume.headline));
-
     if (Array.isArray(resume.items) && resume.items.length) {
       var grid = el("div", "resume-grid");
       resume.items.forEach(function (item) {
